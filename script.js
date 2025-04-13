@@ -1,19 +1,22 @@
-const supabaseUrl = 'https://vaqksnkyciswgkztafbk.supabase.co'; 
-const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZhcWtzbmt5Y2lzd2drenRhZmJrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQ1MzI2OTIsImV4cCI6MjA2MDEwODY5Mn0.mH-f-VDmo3GA2KlKNDb9L2FOIqLQZjBDYIzuCZVVsHM'; 
-const supabase = createClient(supabaseUrl, supabaseAnonKey);
+// Initialize Supabase connection
+const supabaseUrl = '[your-supabase-url]';
+const supabaseAnonKey = '[your-anon-key]';
+const supabase = supabase.createClient(supabaseUrl, supabaseAnonKey);
 
+// Select form and message display element
 const registrationForm = document.getElementById('registrationForm');
 const messageElement = document.getElementById('message');
 
 registrationForm.addEventListener('submit', async (event) => {
     event.preventDefault(); // Prevent the default form submission
 
+    // Collect form values
     const firstName = registrationForm.firstName.value;
     const lastName = registrationForm.lastName.value;
     const email = registrationForm.email.value;
     const password = registrationForm.password.value;
 
-    // Simple email validation (you might want more robust validation)
+    // Basic validation
     if (!email.includes('@')) {
         displayMessage('Please enter a valid email address.', 'error');
         return;
@@ -25,32 +28,44 @@ registrationForm.addEventListener('submit', async (event) => {
     }
 
     try {
-        const { data, error } = await supabase.auth.signUp({
+        // Register user using Supabase Authentication
+        const { data, error: signUpError } = await supabase.auth.signUp({
             email: email,
-            password: password,
-            options: {
-                data: {
-                    first_name: firstName,
-                    last_name: lastName,
-                    // You can add more user metadata here
-                }
-            }
+            password: password
         });
 
-        if (error) {
-            displayMessage(`Registration failed: ${error.message}`, 'error');
-        } else {
-            console.log('Registration successful:', data);
-            displayMessage('Registration successful! Please check your email to verify your account.', 'success');
-            registrationForm.reset(); // Clear the form
+        if (signUpError) {
+            displayMessage(`Registration failed: ${signUpError.message}`, 'error');
+            return;
         }
+
+        // Insert user details into your 'Register' table (without password!)
+        const { error: insertError } = await supabase
+            .from('Register')
+            .insert([
+                {
+                    Email: email,
+                    'First Name': firstName,
+                    'Last Name': lastName
+                }
+            ]);
+
+        if (insertError) {
+            displayMessage(`Failed to save details: ${insertError.message}`, 'error');
+            return;
+        }
+
+        displayMessage('Registration successful! Please check your email to verify your account.', 'success');
+        registrationForm.reset(); // Clear the form
+
     } catch (error) {
         console.error('An unexpected error occurred:', error);
         displayMessage('An unexpected error occurred during registration.', 'error');
     }
 });
 
+// Helper to show messages
 function displayMessage(text, type) {
     messageElement.textContent = text;
-    messageElement.className = `message ${type}`; // Add class for styling
+    messageElement.className = `message ${type}`;
 }
