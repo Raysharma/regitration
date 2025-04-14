@@ -1,6 +1,6 @@
 // Initialize Supabase connection
 const supabaseUrl = 'https://vaqksnkyciswgkztafbk.supabase.co';
-const supabaseAnonKey = '[your-anon-key]eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZhcWtzbmt5Y2lzd2drenRhZmJrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQ1MzI2OTIsImV4cCI6MjA2MDEwODY5Mn0.mH-f-VDmo3GA2KlKNDb9L2FOIqLQZjBDYIzuCZVVsHM    ';
+const supabaseAnonKey ='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZhcWtzbmt5Y2lzd2drenRhZmJrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQ1MzI2OTIsImV4cCI6MjA2MDEwODY5Mn0.mH-f-VDmo3GA2KlKNDb9L2FOIqLQZjBDYIzuCZVVsHM    ';
 const supabase = supabase.createClient(supabaseUrl, supabaseAnonKey);
 
 // Select form and message display element
@@ -11,7 +11,7 @@ registrationForm.addEventListener('submit', async (event) => {
     event.preventDefault(); // Prevent the default form submission
 
     // Collect form values
-    const firstName = registrationForm.firstName.value;
+    const firstName = registrationForm.firstname.value;
     const lastName = registrationForm.lastName.value;
     const email = registrationForm.email.value;
     const password = registrationForm.password.value;
@@ -45,8 +45,8 @@ registrationForm.addEventListener('submit', async (event) => {
             .insert([
                 {
                     Email: email,
-                    'First Name': firstName,
-                    'Last Name': lastName
+                    'First_Name': firstName,
+                    'Last_Name': lastName
                 }
             ]);
 
