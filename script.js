@@ -1,23 +1,16 @@
-
 // Initialize Supabase connection
 const supabaseUrl = "https://vaqksnkyciswgkztafbk.supabase.co"
-const supabaseAnonKey =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZhcWtzbmt5Y2lzd2drenRhZmJrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQ1MzI2OTIsImV4cCI6MjA2MDEwODY5Mn0.mH-f-VDmo3GA2KlKNDb9L2FOIqLQZjBDYIzuCZVVsHM"
+const supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZhcWtzbmt5Y2lzd2drenRhZmJrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQ1MzI2OTIsImV4cCI6MjA2MDEwODY5Mn0.mH-f-VDmo3GA2KlKNDb9L2FOIqLQZjBDYIzuCZVVsHM"
 
-// Create the Supabase client correctly using the createClient function
 const supabase = supabase.createClient(supabaseUrl, supabaseAnonKey)
-console.log("Supabase client initialized:", supabase);
-console.log("Initializing Supabase...")
-console.log("Supabase URL:", supabaseUrl)
-console.log("Supabase Anon Key:", supabaseAnonKey)
-console.log("Supabase instance:", supabaseClient)
+console.log("Supabase client initialized:", supabase)
 
 // Select form and message display element
 const registrationForm = document.getElementById("registrationForm")
 const messageElement = document.getElementById("message")
 
 registrationForm.addEventListener("submit", async (event) => {
-  event.preventDefault() // Prevent the default form submission
+  event.preventDefault() // Prevent page reload
 
   // Collect form values
   const firstName = registrationForm.firstname.value
@@ -37,8 +30,8 @@ registrationForm.addEventListener("submit", async (event) => {
   }
 
   try {
-    // Register user using Supabase Authentication
-    const { data, error: signUpError } = await supabaseClient.auth.signUp({
+    // Register user using Supabase Auth
+    const { data, error: signUpError } = await supabase.auth.signUp({
       email: email,
       password: password,
     })
@@ -48,8 +41,8 @@ registrationForm.addEventListener("submit", async (event) => {
       return
     }
 
-    // Insert user details into your 'Register' table (without password!)
-    const { error: insertError } = await supabaseClient.from("Register").insert([
+    // Insert user details into 'Register' table (no password!)
+    const { error: insertError } = await supabase.from("Register").insert([
       {
         Email: email,
         First_Name: firstName,
@@ -58,19 +51,20 @@ registrationForm.addEventListener("submit", async (event) => {
     ])
 
     if (insertError) {
-      displayMessage(`Failed to save details: ${insertError.message}`, "error")
+      displayMessage(`Failed to save user details: ${insertError.message}`, "error")
       return
     }
 
     displayMessage("Registration successful! Please check your email to verify your account.", "success")
     registrationForm.reset() // Clear the form
+
   } catch (error) {
-    console.error("An unexpected error occurred:", error)
+    console.error("Unexpected error:", error)
     displayMessage("An unexpected error occurred during registration.", "error")
   }
 })
 
-// Helper to show messages
+// Helper function to show messages on the page
 function displayMessage(text, type) {
   messageElement.textContent = text
   messageElement.className = `message ${type}`
