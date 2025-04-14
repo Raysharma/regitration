@@ -1,5 +1,3 @@
-// Import the Supabase client library
-import { createClient } from "@supabase/supabase-js"
 
 // Initialize Supabase connection
 const supabaseUrl = "https://vaqksnkyciswgkztafbk.supabase.co"
