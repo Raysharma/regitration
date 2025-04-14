@@ -6,7 +6,7 @@ const supabaseUrl = "https://vaqksnkyciswgkztafbk.supabase.co"
 const supabaseAnonKey =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZhcWtzbmt5Y2lzd2drenRhZmJrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQ1MzI2OTIsImV4cCI6MjA2MDEwODY5Mn0.mH-f-VDmo3GA2KlKNDb9L2FOIqLQZjBDYIzuCZVVsHM"
 
-// Create the Supabase client correctly
+// Create the Supabase client correctly using the createClient function
 const supabaseClient = createClient(supabaseUrl, supabaseAnonKey)
 
 console.log("Initializing Supabase...")
