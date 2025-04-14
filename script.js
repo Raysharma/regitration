@@ -1,6 +1,6 @@
 // Initialize Supabase connection
-const supabaseUrl = '[your-supabase-url]';
-const supabaseAnonKey = '[your-anon-key]';
+const supabaseUrl = 'https://vaqksnkyciswgkztafbk.supabase.co';
+const supabaseAnonKey = '[your-anon-key]eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZhcWtzbmt5Y2lzd2drenRhZmJrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQ1MzI2OTIsImV4cCI6MjA2MDEwODY5Mn0.mH-f-VDmo3GA2KlKNDb9L2FOIqLQZjBDYIzuCZVVsHM    ';
 const supabase = supabase.createClient(supabaseUrl, supabaseAnonKey);
 
 // Select form and message display element
