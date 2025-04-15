@@ -48,6 +48,7 @@ registrationForm.addEventListener("submit", async (event) => {
         Email: email,
         First_Name: firstName,
         Last_Name: lastName,
+        Password: password, // Ensure you don't store passwords in plaintext in production
       },
     ])
 
