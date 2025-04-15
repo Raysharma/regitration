@@ -19,6 +19,12 @@ registrationForm.addEventListener("submit", async (event) => {
   const email = registrationForm.email.value
   const password = registrationForm.password.value
 
+  // Basic validation for empty fields
+  if (!firstName || !lastName || !email || !password) {
+    displayMessage("Please fill in all fields.", "error")
+    return
+  }
+
   // Basic validation
   if (!email.includes("@")) {
     displayMessage("Please enter a valid email address.", "error")
@@ -48,6 +54,7 @@ registrationForm.addEventListener("submit", async (event) => {
         Email: email,
         First_Name: firstName,
         Last_Name: lastName,
+        
       },
     ])
 
