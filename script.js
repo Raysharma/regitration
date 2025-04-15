@@ -1,10 +1,11 @@
+import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
+
 // Initialize Supabase connection
-const supabaseUrl = "https://vaqksnkyciswgkztafbk.supabase.co"
-const supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZhcWtzbmt5Y2lzd2drenRhZmJrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQ1MzI2OTIsImV4cCI6MjA2MDEwODY5Mn0.mH-f-VDmo3GA2KlKNDb9L2FOIqLQZjBDYIzuCZVVsHM"
+const supabaseUrl = "https://vaqksnkyciswgkztafbk.supabase.co";
+const supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZhcWtzbmt5Y2lzd2drenRhZmJrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQ1MzI2OTIsImV4cCI6MjA2MDEwODY5Mn0.mH-f-VDmo3GA2KlKNDb9L2FOIqLQZjBDYIzuCZVVsHM";
 
-const supabase = supabase.createClient(supabaseUrl, supabaseAnonKey)
-console.log("Supabase client initialized:", supabase)
-
+const supabase = createClient(supabaseUrl, supabaseAnonKey);
+console.log("Supabase client initialized:", supabase);
 // Select form and message display element
 const registrationForm = document.getElementById("registrationForm")
 const messageElement = document.getElementById("message")
